@@ -9,14 +9,14 @@ class AliOSSFlutter {
     final MethodChannel _channel = MethodChannel('aliossflutter')
     ..setMethodCallHandler(_handler);
   static final _uuid = new Uuid();
-  String id;
+  String? id;
 
   AliOSSFlutter() {
     id = _uuid.v4();
     alis[id] = this;
   }
 
-  static final alis = new Map<String, AliOSSFlutter>();
+  static final alis = new Map<String?, AliOSSFlutter>();
   StreamController<bool> _responseInitController =
   new StreamController.broadcast();
   Stream<bool> get responseFromInit =>
@@ -63,23 +63,23 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
 
 //监听回调方法
   static Future<dynamic> _handler(MethodCall methodCall) {
-    Map arguments;
+    Map? arguments;
     if(methodCall.arguments is String)
       {
         arguments=json.decode(methodCall.arguments);
       }
     else {
-      arguments = methodCall.arguments as Map;
+      arguments = methodCall.arguments as Map?;
     }
-    String id = arguments['id'];
-    AliOSSFlutter oss = alis[id];
+    String? id = arguments!['id'];
+    AliOSSFlutter? oss = alis[id];
     switch (methodCall.method) {
       case "onInit":
         bool flag=false;
         if("success"==arguments["result"]){
           flag=true;
         }
-        oss._responseInitController.add(flag);
+        oss!._responseInitController.add(flag);
         break;
       case "onProgress":
         ProgressResponse res = new ProgressResponse(
@@ -88,7 +88,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
                 double.parse(arguments["currentSize"].toString()),
             totalSize:
                 double.parse(arguments["totalSize"].toString()));
-        oss._responseProgressController.add(res);
+        oss!._responseProgressController.add(res);
         break;
       case "onSign":
         SignResponse res=SignResponse(success: false);
@@ -99,7 +99,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
           res.msg=arguments["message"];
         }
         res.key=arguments["key"].toString();
-        oss._responseSignController.add(res);
+        oss!._responseSignController.add(res);
         break;
         case "onDelete":
         DeleteResponse res=DeleteResponse(success: false);
@@ -107,7 +107,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
           res.success=true;
         }
         res.key=arguments["key"];
-        oss._responseDeleteController.add(res);
+        oss!._responseDeleteController.add(res);
         break;
       case "onUpload":
         UploadResponse res=UploadResponse(success: false);
@@ -118,7 +118,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
           res.msg=arguments["message"];
         }
         res.key=arguments["key"];
-        oss._responseUploadController.add(res);
+        oss!._responseUploadController.add(res);
         break;
       case "onDownload":
         DownloadResponse res=DownloadResponse(success: false);
@@ -129,7 +129,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
           res.msg=arguments["message"];
         }
         res.key=arguments["key"].toString();
-        oss._responseDownloadController.add(res);
+        oss!._responseDownloadController.add(res);
         break;
         case "asyncHeadObject":
           HeadObjectResponse res=HeadObjectResponse(success: false);
@@ -138,7 +138,7 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
       }
       res.key=arguments["key"];
       res.lastModified=arguments["lastModified"];
-      oss._responseHeadObjectController.add(res);
+      oss!._responseHeadObjectController.add(res);
       break;
       case "onListObjects":
         ListObjectsResponse res=ListObjectsResponse(success: false);
@@ -146,19 +146,19 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
           res.success=true;
         }
         res.objects=arguments["objects"];
-        oss._responseListObjectsController.add(res);
+        oss!._responseListObjectsController.add(res);
         break;
     }
     return Future.value(true);
   }
 
 //上传
-  Future upload(String bucket, String file, String key,{String callbackUrl,String callbackHost,String callbackBodyType,String callbackBody,String callbackVars}) async {
+  Future upload(String bucket, String file, String key,{String? callbackUrl,String? callbackHost,String? callbackBodyType,String? callbackBody,String? callbackVars}) async {
     return await _invokeMethod(
-        'upload', <String, String>{"bucket": bucket, "file": file, "key": key, "callbackUrl": callbackUrl, "callbackHost": callbackHost, "callbackBodyType": callbackBodyType, "callbackBody": callbackBody, "callbackVars": callbackVars});
+        'upload', <String, String?>{"bucket": bucket, "file": file, "key": key, "callbackUrl": callbackUrl, "callbackHost": callbackHost, "callbackBodyType": callbackBodyType, "callbackBody": callbackBody, "callbackVars": callbackVars});
   }
 
-  Future uploadByte(String bucket, Uint8List fileByte, String key,{String callbackUrl,String callbackHost,String callbackBodyType,String callbackBody,String callbackVars}) async {
+  Future uploadByte(String bucket, Uint8List fileByte, String key,{String? callbackUrl,String? callbackHost,String? callbackBodyType,String? callbackBody,String? callbackVars}) async {
     return await _invokeMethod(
         'uploadByte', <String, dynamic>{"bucket": bucket, "fileByte": fileByte, "key": key, "callbackUrl": callbackUrl, "callbackHost": callbackHost, "callbackBodyType": callbackBodyType, "callbackBody": callbackBody, "callbackVars": callbackVars});
   }

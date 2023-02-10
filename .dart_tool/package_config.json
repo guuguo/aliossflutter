@@ -3,78 +3,78 @@
   "packages": [
     {
       "name": "characters",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/characters-1.1.0-nullsafety.2",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/characters-1.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
-    },
-    {
-      "name": "charcode",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/charcode-1.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "1.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/collection-1.15.0-nullsafety.2",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/collection-1.17.0",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
-    },
-    {
-      "name": "convert",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/convert-2.0.2",
-      "packageUri": "lib/",
-      "languageVersion": "1.17"
+      "languageVersion": "2.12"
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/crypto-2.0.6",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/crypto-3.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.14"
     },
     {
       "name": "flutter",
-      "rootUri": "file:///Users/jiangliang/development/flutter/packages/flutter",
+      "rootUri": "file:///Users/guodeqing/guuguo/app/fvm/3.7.1/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/js-0.6.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "material_color_utilities",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/material_color_utilities-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.13"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/meta-1.3.0-nullsafety.2",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/meta-1.8.0",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///Users/jiangliang/development/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///Users/guodeqing/guuguo/app/fvm/3.7.1/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
-      "languageVersion": "1.11"
+      "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.3.0-nullsafety.2",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.3.1",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "uuid",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/uuid-2.0.0",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/uuid-3.0.7",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///Users/jiangliang/.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.1.0-nullsafety.2",
+      "rootUri": "file:///Users/guodeqing/.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.1.4",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.14"
     },
     {
       "name": "aliossflutter",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     }
   ],
-  "generated": "2020-11-15T14:07:15.905922Z",
+  "generated": "2023-02-09T14:55:37.616264Z",
   "generator": "pub",
-  "generatorVersion": "2.10.0-38.0.dev"
+  "generatorVersion": "2.19.1"
 }
