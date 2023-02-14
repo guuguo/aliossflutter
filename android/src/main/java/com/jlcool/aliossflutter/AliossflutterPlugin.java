@@ -1,7 +1,10 @@
 package com.jlcool.aliossflutter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -45,6 +48,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -54,27 +60,30 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * AliossflutterPlugin
  */
-public class AliossflutterPlugin implements MethodCallHandler {
+public class AliossflutterPlugin implements MethodCallHandler, FlutterPlugin , ActivityAware {
     String endpoint;
-    static Registrar registrar;
-    private final Activity activity;
+    private Activity activity;
+    private Context context;
 
     static MethodChannel channel;
     Result _result;
     MethodCall _call;
     private static OSS oss;
 
-    private AliossflutterPlugin(Registrar registrar, Activity activity) {
-        this.registrar = registrar;
-        this.activity = activity;
-    }
+//    private AliossflutterPlugin(Registrar registrar, Activity activity) {
+//        this.registrar = registrar;
+//        this.activity = activity;
+//    }
 
     /**
      * Plugin registration.
      */
     public static void registerWith(Registrar registrar) {
         channel = new MethodChannel(registrar.messenger(), "aliossflutter");
-        channel.setMethodCallHandler(new AliossflutterPlugin(registrar, registrar.activity()));
+        AliossflutterPlugin plugin=new AliossflutterPlugin();
+        plugin.activity=registrar.activity();
+        plugin.context= registrar.context();
+        channel.setMethodCallHandler(plugin);
     }
 
     @Override
@@ -140,7 +149,7 @@ public class AliossflutterPlugin implements MethodCallHandler {
                 return OSSUtils.sign(accessKeyId, accessKeySecret, content);
             }
         };
-        oss = new OSSClient(registrar.context(), endpoint, credentialProvider);
+        oss = new OSSClient(activity, endpoint, credentialProvider);
         channel.invokeMethod("onInit", m1);
     }
 
@@ -246,7 +255,7 @@ public class AliossflutterPlugin implements MethodCallHandler {
         conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
         conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
 
-        oss = new OSSClient(registrar.context(), endpoint, credentialProvider, conf);
+        oss = new OSSClient(context, endpoint, credentialProvider, conf);
         final Map<String, String> m1 = new HashMap();
         m1.put("result", "success");
         m1.put("id", _id);
@@ -968,5 +977,38 @@ public class AliossflutterPlugin implements MethodCallHandler {
 
         }
         _result.success(_res);
+    }
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        channel = new MethodChannel(binding.getBinaryMessenger(), "aliossflutter");
+        context=binding.getApplicationContext();
+        channel.setMethodCallHandler(this);
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        channel.setMethodCallHandler(null);
+    }
+
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        activity=binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        activity = null;
+    }
+
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        activity = null;
     }
 }
